@@ -31,8 +31,6 @@ const getImages = (query) => {
     .then(response => response.json())
     .then(data => showImages(data.hits))
     .catch(err => console.log(err))
-  //   .catch(error = showError("Please, search by a meaningful name!"));
-  // toggleSpinner(false);
 }
 
 
@@ -143,10 +141,3 @@ const toggleSpinner = (show) => {
     spinner.classList.add("d-none");
   }
 }
-
-// // error messages 
-// const showError = error => {
-//   const errorText = document.getElementById("error-text");
-//   errorText.innerText = error;
-// }
-
