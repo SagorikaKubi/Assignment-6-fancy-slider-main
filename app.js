@@ -31,7 +31,8 @@ const getImages = (query) => {
     .then(response => response.json())
     .then(data => showImages(data.hits))
     // .catch(err => console.log(err))
-    .catch(error => showError("Sorry"));
+    .catch(error = showError("Please, search by a meaningful name!"));
+  toggleSpinner(false);
 }
 
 
@@ -145,6 +146,7 @@ const toggleSpinner = (show) => {
 
 // error messages 
 const showError = error => {
+  console.log(error);
   const errorText = document.getElementById("error-text");
   errorText.innerText = error;
 }
