@@ -30,9 +30,9 @@ const getImages = (query) => {
   fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
     .then(response => response.json())
     .then(data => showImages(data.hits))
-    // .catch(err => console.log(err))
-    .catch(error = showError("Please, search by a meaningful name!"));
-  toggleSpinner(false);
+    .catch(err => console.log(err))
+  //   .catch(error = showError("Please, search by a meaningful name!"));
+  // toggleSpinner(false);
 }
 
 
@@ -121,7 +121,7 @@ searchBtn.addEventListener('click', function () {
   sliders.length = 0;
 })
 
-
+// enter button handler 
 document.getElementById("search").addEventListener("keypress", function (event) {
   if (event.key == "Enter") {
     document.getElementById("search-btn").click();
@@ -144,10 +144,9 @@ const toggleSpinner = (show) => {
   }
 }
 
-// error messages 
-const showError = error => {
-  console.log(error);
-  const errorText = document.getElementById("error-text");
-  errorText.innerText = error;
-}
+// // error messages 
+// const showError = error => {
+//   const errorText = document.getElementById("error-text");
+//   errorText.innerText = error;
+// }
 
