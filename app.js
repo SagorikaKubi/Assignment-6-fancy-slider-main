@@ -27,12 +27,17 @@ const showImages = (images) => {
 const KEY = '15674931-a9d714b6e9d654524df198e00&q';
 const getImages = (query) => {
   toggleSpinner(true);
-  fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
+  const url = `https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`;
+  fetch(url)
     .then(response => response.json())
     .then(data => showImages(data.hits))
-    .catch(err => console.log(err))
+    .catch(error => show("sorry"));
 }
 
+const show = () => {
+  const tag = document.getElementById("error-text");
+  tag.innerHTML = error;
+}
 
 let slideIndex = 0;
 const selectItem = (event, img) => {
@@ -46,7 +51,6 @@ const selectItem = (event, img) => {
     element.classList.toggle("added");
   }
 }
-
 
 var timer
 const createSlider = () => {
@@ -66,21 +70,20 @@ const createSlider = () => {
   sliderContainer.appendChild(prevNext)
   document.querySelector('.main').style.display = 'block';
 
-  // hide image aria
   imagesArea.style.display = 'none';
-  const duration = document.getElementById('duration').value || 1000;
-  if (duration < 0) {
-    alert("Time cannot be a negative number!");
-  } else {
-    sliders.forEach(slide => {
-      let item = document.createElement('div')
-      item.className = "slider-item";
-      item.innerHTML = `<img class="w-100"
+  let timer = document.getElementById('duration').value;
+  if (timer < 0) {
+    timer = 1000;
+  }
+  let duration = timer || 1000;
+  sliders.forEach(slide => {
+    let item = document.createElement('div')
+    item.className = "slider-item";
+    item.innerHTML = `<img class="w-100"
       src="${slide}"
       alt="">`;
-      sliderContainer.appendChild(item)
-    })
-  }
+    sliderContainer.appendChild(item)
+  })
 
   changeSlide(0);
   timer = setInterval(function () {
