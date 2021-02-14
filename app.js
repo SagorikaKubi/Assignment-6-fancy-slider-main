@@ -24,20 +24,16 @@ const showImages = (images) => {
 }
 
 
-const KEY = '15674931-a9d714b6e9d654524df198e00&q';
+KEY = '15674931-a9d714b6e9d654524df198e00&q';
 const getImages = (query) => {
   toggleSpinner(true);
   const url = `https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`;
   fetch(url)
     .then(response => response.json())
     .then(data => showImages(data.hits))
-    .catch(error => show("sorry"));
+    .catch(error => showError("Please, search by a meaningful name!"));
 }
 
-const show = () => {
-  const tag = document.getElementById("error-text");
-  tag.innerHTML = error;
-}
 
 let slideIndex = 0;
 const selectItem = (event, img) => {
@@ -52,6 +48,7 @@ const selectItem = (event, img) => {
   }
 }
 
+
 var timer
 const createSlider = () => {
   // check slider image length
@@ -59,7 +56,7 @@ const createSlider = () => {
     alert('Select at least 2 image.')
     return;
   }
-  // crate slider previous next area
+  // create slider previous next area
   sliderContainer.innerHTML = '';
   const prevNext = document.createElement('div');
   prevNext.className = "prev-next d-flex w-100 justify-content-between align-items-center";
@@ -71,11 +68,11 @@ const createSlider = () => {
   document.querySelector('.main').style.display = 'block';
 
   imagesArea.style.display = 'none';
-  let timer = document.getElementById('duration').value;
-  if (timer < 0) {
-    timer = 1000;
+  let time = document.getElementById('duration').value;
+  if (time < 0) {
+    time = 1000;
   }
-  let duration = timer || 1000;
+  let duration = time || 1000;
   sliders.forEach(slide => {
     let item = document.createElement('div')
     item.className = "slider-item";
@@ -114,6 +111,7 @@ const changeSlide = (index) => {
   items[index].style.display = "block"
 }
 
+
 searchBtn.addEventListener('click', function () {
   document.querySelector('.main').style.display = 'none';
   clearInterval(timer);
@@ -143,4 +141,11 @@ const toggleSpinner = (show) => {
   } else {
     spinner.classList.add("d-none");
   }
+}
+
+// error message section
+const showError = error => {
+  const errorTag = document.getElementById("error-message");
+  errorTag.innerText = error;
+  toggleSpinner();
 }
